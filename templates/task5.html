@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recommendation Engine</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <form id="recommendation-form">
+        <label for="month">Enter a month:</label><br>
+        <select id="month" name="month">
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+        </select><br>
+        <input type="submit" value="Get Recommendation">
+    </form>
+    <p id="recommendation"></p>
+    <p id="anomalies"></p>
+
+    <script>
+        $(document).ready(function(){
+            $("#recommendation-form").submit(function(event){
+                event.preventDefault();
+                var month = $("#month").val();
+                $.get("/recommend", {month: month}, function(data){
+                    $("#recommendation").text("Recommendation: " + data.recommendation);
+                    $("#anomalies").text("Anomalies: " + data.anomalies);
+                });
+            });
+        });
+    </script>
+        
+</body>
+</html>
